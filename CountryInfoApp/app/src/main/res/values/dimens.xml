@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- text sizes-->
+    <dimen name="title_size">17sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_15">15sp</dimen>
+    <dimen name="text_size_13">13sp</dimen>
+
+    <!-- paddings-->
+    <dimen name="padding_5">5dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_16">16dp</dimen>
+
+    <!--Margin-->
+    <dimen name="icon_dimension_5">5dp</dimen>
+    <dimen name="icon_dimension_3">3dp</dimen>
+    <dimen name="icon_dimension_1">1dp</dimen>
+
+</resources>

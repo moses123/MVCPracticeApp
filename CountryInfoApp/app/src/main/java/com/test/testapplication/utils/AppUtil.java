@@ -1,7 +1,12 @@
 package com.test.testapplication.utils;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.ImageView;
+
+import com.test.testapplication.model.Information;
+import com.test.testapplication.ui.adapter.CountryInfoAdapter;
+
 
 /**
  * Created by moseskesavan on 11/21/17.
@@ -22,13 +27,19 @@ public class AppUtil {
     }
 
     /**
-     * This method loads the image .
-     *
-     * @param context   app/activity context.
-     * @param imageUrl  the image url .
-     * @param imageView the image view.
+     * This method will return the view type to be rendered based on the information.
+     * @param info the information object.
+     * @return type
      */
-    public static void loadImage(Context context, String imageUrl, ImageView imageView) {
-        //TODO:  write the code:
+    public static int getItemViewType(Information info) {
+        int viewType=-1;
+        if (info != null ) {
+                if (TextUtils.isEmpty(info.getImageUrl()) && !(TextUtils.isEmpty(info.getDescription()) && TextUtils.isEmpty(info.getTitle()))) {
+                    viewType=CountryInfoAdapter.VIEW_TYPE_NO_IMAGE;
+                } else {
+                    viewType= CountryInfoAdapter.VIEW_TYPE_DEFAULT;
+                }
+            }
+        return viewType;
     }
 }

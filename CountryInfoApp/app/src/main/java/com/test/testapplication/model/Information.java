@@ -1,7 +1,6 @@
 package com.test.testapplication.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by moseskesavan on 11/21/17.
@@ -12,48 +11,20 @@ import android.os.Parcelable;
  * c) Image URL
  */
 
-public class Information implements Parcelable {
+public class Information  {
 
     /* holds the title*/
+    @SerializedName("title")
     private String title;
 
     /*holds the description*/
+    @SerializedName("description")
     private String description;
 
     /*holds the image URL*/
+    @SerializedName("imageHref")
     private String imageUrl;
 
-     /* Parcelable implementation for this class goes here:*/
-
-    protected Information(Parcel in) {
-        title=in.readString();
-        description=in.readString();
-        imageUrl=in.readString();
-    }
-
-    public static final Creator<Information> CREATOR = new Creator<Information>() {
-        @Override
-        public Information createFromParcel(Parcel in) {
-            return new Information(in);
-        }
-
-        @Override
-        public Information[] newArray(int size) {
-            return new Information[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(title);
-        parcel.writeString(description);
-        parcel.writeString(imageUrl);
-    }
 
 
     /* Getter and setter for the above fields goes here:*/

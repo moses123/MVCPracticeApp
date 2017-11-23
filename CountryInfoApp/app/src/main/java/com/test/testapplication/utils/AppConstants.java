@@ -7,4 +7,5 @@ package com.test.testapplication.utils;
  */
 
 public class AppConstants {
+
 }
