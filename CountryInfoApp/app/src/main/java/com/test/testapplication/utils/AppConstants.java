@@ -8,4 +8,7 @@ package com.test.testapplication.utils;
 
 public class AppConstants {
 
+    public static final String TITLE_PREF_KEY="key_title";
+
+    public static final String PREF_NAME ="app_Pref" ;
 }

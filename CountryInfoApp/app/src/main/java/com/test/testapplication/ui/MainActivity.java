@@ -1,6 +1,7 @@
 package com.test.testapplication.ui;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import com.test.testapplication.controller.ResponseCallback;
 import com.test.testapplication.logger.AppLog;
 import com.test.testapplication.model.Information;
 import com.test.testapplication.ui.adapter.CountryInfoAdapter;
+import com.test.testapplication.utils.AppConstants;
 import com.test.testapplication.utils.AppUtil;
 
 import java.util.List;
@@ -60,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
     /*Holds the activity context*/
     private Context mContext;
 
+    /*Holds the shared pref instance*/
+    private SharedPreferences mPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,10 +74,19 @@ public class MainActivity extends AppCompatActivity {
         initViews();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setAppTitle(mPreferences.getString(AppConstants.TITLE_PREF_KEY, ""));
+    }
+
     /**
      * Initialise the UI components here
      */
     private void initViews() {
+        if (mPreferences == null) {
+            mPreferences = mContext.getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
+        }
         attachCallBack();
         initData();
     }
@@ -94,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 AppLog.d(TAG, "Got the Response");
                 // Remove the waiting progress
                 mWaitingProgress.setVisibility(View.GONE);
-                setTitle(title);
+                setAppTitle(title);
                 setAdapter(response);
             }
 
@@ -124,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         AppController.getAppController().registerCallback(callback);
 
         //Attaching the swipe refresh listener to the layout
-        SwipeRefreshLayout.OnRefreshListener listener= new SwipeRefreshLayout.OnRefreshListener() {
+        SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mSwipeRefreshLayout.setRefreshing(true);
@@ -140,28 +154,28 @@ public class MainActivity extends AppCompatActivity {
      * Initialize the data here
      */
     private void initData() {
-
         mWaitingProgress.setVisibility(View.VISIBLE);
-        if(AppUtil.isNetworkConnected(mContext)){
-        List<Information> infoList = AppController.getAppController().fetchInformationListFromDB();
-        if (infoList == null || infoList.size()==0) {
-            AppController.getAppController().fetchInformationList();
-        }else{
-            setAdapter(infoList);
+        if (AppUtil.isNetworkConnected(mContext)) {
+            List<Information> infoList = AppController.getAppController().fetchInformationListFromDB();
+            if (infoList == null || infoList.size() == 0) {
+                AppController.getAppController().fetchInformationList();
+            } else {
+                setAdapter(infoList);
+                mWaitingProgress.setVisibility(View.GONE);
+            }
+        } else {
             mWaitingProgress.setVisibility(View.GONE);
-        }
-        }else{
-            mWaitingProgress.setVisibility(View.GONE);
-            Snackbar.make(getWindow().getDecorView().getRootView(),getString(R.string.connectivity_error_text),Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.connectivity_error_text), Snackbar.LENGTH_SHORT).show();
         }
 
     }
 
     /**
-     *  Method to set the data to adapter & the adapter to our recyler view.
+     * Method to set the data to adapter & the adapter to our recyler view.
+     *
      * @param infoList list of information object
      */
-    private void setAdapter(List<Information> infoList){
+    private void setAdapter(List<Information> infoList) {
 
         if (mInfoAdapter == null) {
             mInfoAdapter = new CountryInfoAdapter(infoList);
@@ -170,6 +184,21 @@ public class MainActivity extends AppCompatActivity {
         } else {
             mInfoAdapter.setCountryInfoList(infoList);
             mInfoRecyclerView.getAdapter().notifyDataSetChanged();
+        }
+
+
+    }
+
+    /**
+     *  save App title in preference and set it in action bar.
+     * @param title title
+     */
+    private void setAppTitle(String title) {
+        if (!TextUtils.isEmpty(title)) {
+            setTitle(title);
+            mPreferences.edit().putString(AppConstants.TITLE_PREF_KEY, title).apply();
+        } else {
+            setTitle(getString(R.string.no_data_text));
         }
 
 
