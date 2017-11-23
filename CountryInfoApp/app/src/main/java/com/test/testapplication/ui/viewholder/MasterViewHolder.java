@@ -13,7 +13,7 @@ import com.test.testapplication.model.Information;
 
 public class MasterViewHolder extends RecyclerView.ViewHolder {
 
-    public MasterViewHolder(View itemView) {
+    MasterViewHolder(View itemView) {
         super(itemView);
     }
 

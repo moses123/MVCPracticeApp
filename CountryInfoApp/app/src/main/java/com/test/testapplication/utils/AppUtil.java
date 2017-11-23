@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
-import android.widget.ImageView;
 
 import com.test.testapplication.model.Information;
 import com.test.testapplication.ui.adapter.CountryInfoAdapter;
@@ -26,6 +25,7 @@ public class AppUtil {
     public static boolean isNetworkConnected(Context context) {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }

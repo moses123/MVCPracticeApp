@@ -116,7 +116,7 @@ public class AppController {
     }
 
     @NonNull
-    protected Callback<CountryInfo> getNetworkCallback() {
+    private Callback<CountryInfo> getNetworkCallback() {
         return new Callback<CountryInfo>() {
 
             @Override

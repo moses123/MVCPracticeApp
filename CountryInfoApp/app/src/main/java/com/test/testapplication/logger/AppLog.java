@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class AppLog {
 
-        public static boolean IS_DEBUG_ENABLED = true;
+          static boolean IS_DEBUG_ENABLED = true;
 
 
         /**
@@ -67,13 +67,6 @@ public class AppLog {
             return -1;
         }
 
-        public static int v(java.lang.String tag, java.lang.String msg,Exception ex)
-        {
-            if (isDebugBuild() && !isEmpty(msg)) {
-                return Log.v(tag, msg,ex);
-            }
-            return -1;
-        }
 
         public static int w(java.lang.String tag, java.lang.String msg)
         {
