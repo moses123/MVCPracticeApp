@@ -1,6 +1,8 @@
 package com.test.testapplication.utils;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -21,9 +23,11 @@ public class AppUtil {
      *
      * @return true if connected else false.
      */
-    public static boolean isNetworkConnected() {
-        //TODO:  write the code:
-        return false;
+    public static boolean isNetworkConnected(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     /**

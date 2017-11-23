@@ -16,6 +16,7 @@ import com.bumptech.glide.request.target.Target;
 import com.test.testapplication.App;
 import com.test.testapplication.R;
 import com.test.testapplication.model.Information;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -44,11 +45,15 @@ public class InfoDefaultViewHolder extends MasterViewHolder {
         ButterKnife.bind(this,itemView);
     }
 
-
+    /**
+     * Binds the data with the UI.
+     * @param information info object.
+     */
     public void bind(Information information) {
         if (information != null) {
-            mTitleText.setText(TextUtils.isEmpty(information.getDescription())? App.getContext().getString(R.string.empty_title_text):information.getTitle());
+            mTitleText.setText(TextUtils.isEmpty(information.getTitle())? App.getContext().getString(R.string.empty_title_text):information.getTitle());
             mDescriptionText.setText(TextUtils.isEmpty(information.getDescription())? App.getContext().getString(R.string.empty_desc_text):information.getDescription());
+            setPlaceHolderImage();
             downloadImage(information.getImageUrl());
         }
 
@@ -68,16 +73,11 @@ public class InfoDefaultViewHolder extends MasterViewHolder {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object o, Target<Drawable> target, boolean b) {
                            setPlaceHolderImage();
-                            return false;
+                            return true;
                         }
 
                         @Override
                         public boolean onResourceReady(Drawable drawable, Object o, Target<Drawable> target, DataSource dataSource, boolean b) {
-                            if(drawable!=null) {
-                                mImageView.setImageDrawable(drawable);
-                            }else{
-                                setPlaceHolderImage();
-                            }
                             return false;
                         }
                     })
@@ -87,7 +87,7 @@ public class InfoDefaultViewHolder extends MasterViewHolder {
     }
 
     private void setPlaceHolderImage(){
-        Drawable drawable= ContextCompat.getDrawable(mImageView.getContext(),R.drawable.ic_image_place_holder);
+        Drawable drawable= ContextCompat.getDrawable(mImageView.getContext(),R.drawable.image_place_holder);
         mImageView.setImageDrawable(drawable);
     }
 

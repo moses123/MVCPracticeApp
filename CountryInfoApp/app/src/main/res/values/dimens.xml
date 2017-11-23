@@ -2,20 +2,24 @@
 <resources>
 
     <!-- text sizes-->
-    <dimen name="title_size">17sp</dimen>
-    <dimen name="text_size_14">14sp</dimen>
-    <dimen name="text_size_15">15sp</dimen>
-    <dimen name="text_size_13">13sp</dimen>
+    <dimen name="title_size">21sp</dimen>
+    <dimen name="text_size_secondary">14sp</dimen>
+    <dimen name="text_size_normal">12sp</dimen>
+    <dimen name="feed_item_description_size">16sp</dimen>
 
     <!-- paddings-->
-    <dimen name="padding_5">5dp</dimen>
-    <dimen name="padding_8">8dp</dimen>
+    <dimen name="padding_normal">5dp</dimen>
+    <dimen name="padding_large">8dp</dimen>
     <dimen name="padding_10">10dp</dimen>
-    <dimen name="padding_16">16dp</dimen>
+    <dimen name="padding_xlarge">16dp</dimen>
 
     <!--Margin-->
-    <dimen name="icon_dimension_5">5dp</dimen>
-    <dimen name="icon_dimension_3">3dp</dimen>
-    <dimen name="icon_dimension_1">1dp</dimen>
+    <dimen name="margin_normal">5dp</dimen>
+    <dimen name="margin_large">3dp</dimen>
+    <dimen name="margin_small">1dp</dimen>
+    <dimen name="margin_xlarge">8dp</dimen>
 
+    <!--Card radius-->
+    <dimen name="card_radius_small">5dp</dimen>
+    <dimen name="card_radius_large">10dp</dimen>
 </resources>

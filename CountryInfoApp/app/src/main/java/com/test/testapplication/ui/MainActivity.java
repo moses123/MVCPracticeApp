@@ -18,6 +18,7 @@ import com.test.testapplication.controller.ResponseCallback;
 import com.test.testapplication.logger.AppLog;
 import com.test.testapplication.model.Information;
 import com.test.testapplication.ui.adapter.CountryInfoAdapter;
+import com.test.testapplication.utils.AppUtil;
 
 import java.util.List;
 
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 AppLog.d(TAG, "Got the Response");
                 // Remove the waiting progress
                 mWaitingProgress.setVisibility(View.GONE);
-                getActionBar().setTitle(title);
+                setTitle(title);
                 setAdapter(response);
             }
 
@@ -141,18 +142,18 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
 
         mWaitingProgress.setVisibility(View.VISIBLE);
-//        if(AppUtil.isNetworkConnected()){
+        if(AppUtil.isNetworkConnected(mContext)){
         List<Information> infoList = AppController.getAppController().fetchInformationListFromDB();
-        if (infoList == null) {
+        if (infoList == null || infoList.size()==0) {
             AppController.getAppController().fetchInformationList();
         }else{
             setAdapter(infoList);
             mWaitingProgress.setVisibility(View.GONE);
         }
-//        }else{
-//            mWaitingProgress.setVisibility(View.GONE);
-//            Snackbar.make(getWindow().getDecorView().getRootView(),getString(R.string.connectivity_error_text),Snackbar.LENGTH_SHORT).show();
-//        }
+        }else{
+            mWaitingProgress.setVisibility(View.GONE);
+            Snackbar.make(getWindow().getDecorView().getRootView(),getString(R.string.connectivity_error_text),Snackbar.LENGTH_SHORT).show();
+        }
 
     }
 
