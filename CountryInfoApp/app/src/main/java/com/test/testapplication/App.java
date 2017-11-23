@@ -11,6 +11,7 @@ import android.content.Context;
 
 public class App extends Application {
 
+    /* Holds the app context*/
     private static Context sContext;
 
     @Override
@@ -19,6 +20,10 @@ public class App extends Application {
         sContext = this.getApplicationContext();
     }
 
+    /**
+     *  Get the application context throughout the application
+     * @return app context
+     */
     public static Context getContext() {
         return sContext;
     }
