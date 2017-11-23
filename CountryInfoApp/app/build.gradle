@@ -43,6 +43,13 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
 
+    androidTestCompile ('com.android.support.test.espresso:espresso-contrib:2.0') {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+
+
     compile "com.android.support:support-core-utils:25.3.1"
 
     //google support libraries
@@ -61,7 +68,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
 
     /* Unit Test Dependency*/
-    testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.0.2-beta'
     testCompile 'org.powermock:powermock-core:1.6.5'
     testCompile 'org.powermock:powermock-api-mockito:1.6.5'

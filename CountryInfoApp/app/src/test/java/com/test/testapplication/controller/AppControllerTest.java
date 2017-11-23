@@ -44,15 +44,4 @@ public class AppControllerTest {
         mAppController.fetchInformationList();
     }
 
-    @Test
-    public void testGetNetworkCallback(){
-//        mAppController.getNetworkCallback().onResponse();
-
-    }
-
-    @Test
-    public void testFetchInformationListFromDB(){
-
-    }
-
 }
