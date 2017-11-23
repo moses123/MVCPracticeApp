@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -40,6 +41,9 @@ public class InfoDefaultViewHolder extends MasterViewHolder {
     @BindView(R.id.info_image)
      ImageView mImageView;
 
+    @BindView(R.id.image_loading_progress)
+    ProgressBar mProgressBar;
+
     public InfoDefaultViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
@@ -51,9 +55,9 @@ public class InfoDefaultViewHolder extends MasterViewHolder {
      */
     public void bind(Information information) {
         if (information != null) {
-            mTitleText.setText(TextUtils.isEmpty(information.getTitle())? App.getContext().getString(R.string.empty_title_text):information.getTitle());
+                mTitleText.setText(TextUtils.isEmpty(information.getTitle())? App.getContext().getString(R.string.empty_title_text):information.getTitle());
             mDescriptionText.setText(TextUtils.isEmpty(information.getDescription())? App.getContext().getString(R.string.empty_desc_text):information.getDescription());
-            setPlaceHolderImage();
+            mProgressBar.setVisibility(View.VISIBLE);
             downloadImage(information.getImageUrl());
         }
 
@@ -78,6 +82,7 @@ public class InfoDefaultViewHolder extends MasterViewHolder {
 
                         @Override
                         public boolean onResourceReady(Drawable drawable, Object o, Target<Drawable> target, DataSource dataSource, boolean b) {
+                            mProgressBar.setVisibility(View.GONE);
                             return false;
                         }
                     })
@@ -86,7 +91,11 @@ public class InfoDefaultViewHolder extends MasterViewHolder {
 
     }
 
+    /**
+     *  Set default image if image not available.
+     */
     private void setPlaceHolderImage(){
+        mProgressBar.setVisibility(View.GONE);
         Drawable drawable= ContextCompat.getDrawable(mImageView.getContext(),R.drawable.image_place_holder);
         mImageView.setImageDrawable(drawable);
     }
