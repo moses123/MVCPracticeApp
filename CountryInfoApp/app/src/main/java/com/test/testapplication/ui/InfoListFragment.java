@@ -152,9 +152,7 @@ public class InfoListFragment extends Fragment {
                 } else {
                     errorMessage = getString(R.string.common_error_text);
                 }
-                if(getView()!=null) {
-                    Snackbar.make(getView(), errorMessage, Snackbar.LENGTH_SHORT).show();
-                }
+                    Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), errorMessage, Snackbar.LENGTH_SHORT).show();
             }
 
             @Override
@@ -194,9 +192,7 @@ public class InfoListFragment extends Fragment {
             } else {
                 mPreferences.putBoolean(AppConstants.IS_NETWORK_OFF, true);
                 mWaitingProgress.setVisibility(View.GONE);
-                if(getView()!=null){
-                    Snackbar.make(getView(), getString(R.string.connectivity_error_text), Snackbar.LENGTH_SHORT).show();
-                }
+                    Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), getString(R.string.connectivity_error_text), Snackbar.LENGTH_SHORT).show();
             }
         }else{
             setAdapter(infoList);
