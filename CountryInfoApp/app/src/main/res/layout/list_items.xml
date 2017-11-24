@@ -5,7 +5,9 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardUseCompatPadding="true"
-    app:cardElevation="5dp">
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    app:cardElevation="@dimen/padding_normal">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,40 +32,38 @@
             android:layout_below="@id/title_text_view"
             android:orientation="horizontal"
             android:minHeight="@dimen/image_height"
-            android:padding="@dimen/padding_large"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="@dimen/padding_10"
             android:weightSum="1">
 
-            <TextView
+            <uk.co.deanwild.flowtextview.FlowTextView
                 android:id="@+id/description_text_view"
-                android:layout_width="0dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.6"
                 android:ellipsize="end"
                 android:padding="@dimen/padding_normal"
-                android:textSize="@dimen/feed_item_description_size" />
+                >
+                    <ImageView
+                        android:id="@+id/info_image"
+                        android:src="@drawable/image_place_holder"
+                        android:layout_width="@dimen/image_width"
+                        android:layout_height="@dimen/image_height"
+                        android:layout_alignParentRight="true"
+                        android:adjustViewBounds="true"
+                        android:layout_marginLeft="@dimen/padding_normal"
+                        android:scaleType="fitCenter" />
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:padding="@dimen/padding_normal">
-
-                <ImageView
-                    android:id="@+id/info_image"
-                    android:layout_width="@dimen/image_width"
-                    android:layout_height="@dimen/image_height"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter" />
-
-                <ProgressBar
-                    android:id="@+id/image_loading_progress"
-                    android:visibility="gone"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:progressDrawable="@color/cardview_dark_background"
-                    android:layout_height="wrap_content" />
-            </FrameLayout>
+            </uk.co.deanwild.flowtextview.FlowTextView>
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_arrow"
+            android:layout_margin="@dimen/padding_normal"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

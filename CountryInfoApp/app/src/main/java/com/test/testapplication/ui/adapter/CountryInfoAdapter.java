@@ -7,10 +7,8 @@ import android.view.ViewGroup;
 
 import com.test.testapplication.R;
 import com.test.testapplication.model.Information;
-import com.test.testapplication.ui.viewholder.InfoContentViewHolder;
 import com.test.testapplication.ui.viewholder.InfoDefaultViewHolder;
 import com.test.testapplication.ui.viewholder.MasterViewHolder;
-import com.test.testapplication.utils.AppUtil;
 
 import java.util.List;
 
@@ -44,12 +42,6 @@ public class CountryInfoAdapter extends RecyclerView.Adapter<MasterViewHolder> {
         View itemView ;
         MasterViewHolder holder;
         switch (viewType){
-
-            case VIEW_TYPE_NO_IMAGE:
-                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_content_only, parent, false);
-                holder= new InfoContentViewHolder(itemView);
-                break;
-
                 default:
                     itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_items, parent, false);
                     holder= new InfoDefaultViewHolder(itemView);
@@ -75,8 +67,4 @@ public class CountryInfoAdapter extends RecyclerView.Adapter<MasterViewHolder> {
         super.onViewRecycled(holder);
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return AppUtil.getItemViewType( mCountryInfo.get(position));
-    }
 }

@@ -34,12 +34,12 @@ public class MainActivityTest {
 
     @Test
     public void testOnPullToRefreshAndScroll() {
-        testListScroll();
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        testListScroll();
+//        try {
+//            Thread.sleep(4000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         onView(withId(R.id.swipe_refresh_layout))
                 .perform(withCustomConstraints(swipeDown(), isDisplayingAtLeast(85)));
     }

@@ -3,10 +3,11 @@ package com.test.testapplication.ui.viewholder;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -19,6 +20,7 @@ import com.test.testapplication.model.Information;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uk.co.deanwild.flowtextview.FlowTextView;
 
 /**
  * Created by moseskesavan on 11/21/17.
@@ -34,14 +36,11 @@ public class InfoDefaultViewHolder extends MasterViewHolder {
 
     /* Holds the description view instance */
     @BindView(R.id.description_text_view)
-     TextView mDescriptionText;
+    FlowTextView mDescriptionText;
 
     /* Holds the image view instance */
     @BindView(R.id.info_image)
      ImageView mImageView;
-
-    @BindView(R.id.image_loading_progress)
-    ProgressBar mProgressBar;
 
     public InfoDefaultViewHolder(View itemView) {
         super(itemView);
@@ -55,8 +54,10 @@ public class InfoDefaultViewHolder extends MasterViewHolder {
     public void bind(Information information) {
         if (information != null) {
                 mTitleText.setText(TextUtils.isEmpty(information.getTitle())? mTitleText.getContext().getString(R.string.empty_title_text):information.getTitle());
-            mDescriptionText.setText(TextUtils.isEmpty(information.getDescription())? mDescriptionText.getContext().getString(R.string.empty_desc_text):information.getDescription());
-            mProgressBar.setVisibility(View.VISIBLE);
+            String description=TextUtils.isEmpty(information.getDescription())? mDescriptionText.getContext().getString(R.string.empty_desc_text):information.getDescription();
+            Spanned html = Html.fromHtml("<p>"+description+"</p>");
+            mDescriptionText.setText(html);
+            mDescriptionText.setTextSize(mDescriptionText.getContext().getResources().getDimension(R.dimen.feed_item_description_size));
             downloadImage(information.getImageUrl());
         }
 
@@ -81,20 +82,17 @@ public class InfoDefaultViewHolder extends MasterViewHolder {
 
                         @Override
                         public boolean onResourceReady(Drawable drawable, Object o, Target<Drawable> target, DataSource dataSource, boolean b) {
-                            mProgressBar.setVisibility(View.GONE);
                             return false;
                         }
                     })
                     .into(mImageView);
         }
-
     }
 
     /**
      *  Set default image if image not available.
      */
     private void setPlaceHolderImage(){
-        mProgressBar.setVisibility(View.GONE);
         Drawable drawable= ContextCompat.getDrawable(mImageView.getContext(),R.drawable.image_place_holder);
         mImageView.setImageDrawable(drawable);
     }
