@@ -22,4 +22,8 @@
     <!--Card radius-->
     <dimen name="card_radius_small">5dp</dimen>
     <dimen name="card_radius_large">10dp</dimen>
+
+    <!--Image dimensions-->
+    <dimen name="image_width">140dp</dimen>
+    <dimen name="image_height">120dp</dimen>
 </resources>
