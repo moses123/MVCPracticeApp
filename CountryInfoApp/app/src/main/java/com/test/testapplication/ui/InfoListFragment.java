@@ -43,7 +43,7 @@ public class InfoListFragment extends Fragment {
     private final static String TAG = InfoListFragment.class.getSimpleName();
 
     /* Holds the swipe refresh layout instance*/
-    @BindView(R.id.swipe_refresh_layout)
+    @BindView(R.id.swipe_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     /* Holds the recycler view instance*/
