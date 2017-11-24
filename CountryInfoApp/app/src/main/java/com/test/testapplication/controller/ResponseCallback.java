@@ -19,6 +19,8 @@ public class ResponseCallback {
         public void onResponse(List<Information> response, String title){}
 
         public void onError(Throwable t){}
+
+        public void onNetworkChange(boolean status){}
     }
 
 

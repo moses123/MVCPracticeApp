@@ -1,6 +1,7 @@
 package com.test.testapplication.controller;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.test.testapplication.App;
 import com.test.testapplication.database.DBHelper;
@@ -75,10 +76,11 @@ public class AppController {
     }
 
     /**
-     *  This method will give call back to UI with the response
+     * This method will give call back to UI with the response
+     *
      * @param info list of information
      */
-    private void broadcastInfoResponse(List<Information> info, String title){
+    private void broadcastInfoResponse(List<Information> info, String title) {
         int size = mConnectionColl != null ? mConnectionColl.size() : 0;
         for (int i = 0; i < size; i++) {
             if (mConnectionColl.get(i) != null) {
@@ -89,9 +91,10 @@ public class AppController {
 
     /**
      * This method will give error back to UI with the response
+     *
      * @param t error object
      */
-    private void broadcastError(Throwable t){
+    private void broadcastError(Throwable t) {
         int size = mConnectionColl != null ? mConnectionColl.size() : 0;
         for (int i = 0; i < size; i++) {
             if (mConnectionColl.get(i) != null) {
@@ -99,6 +102,21 @@ public class AppController {
             }
         }
     }
+
+    /**
+     * This methdo teels the ui for any network change.
+     *
+     * @param status
+     */
+    public void broadCastNetworkChangeToUI(boolean status) {
+        int size = mConnectionColl != null ? mConnectionColl.size() : 0;
+        for (int i = 0; i < size; i++) {
+            if (mConnectionColl.get(i) != null) {
+                mConnectionColl.get(i).onNetworkChange(status);
+            }
+        }
+    }
+
 
                                              /*All the calls related to API goes here:*/
 
@@ -121,21 +139,30 @@ public class AppController {
 
             @Override
             public void onResponse(Call<CountryInfo> call, Response<CountryInfo> response) {
-                if(response!=null && response.body()!=null){
-                    String title= response.body().getInfoTitle();
+                if (response != null && response.body() != null) {
+                    String title = response.body().getInfoTitle();
+                    List<Information> filteredList = new ArrayList<>();
                     List<Information> info = response.body().getInformationList();
+
+                    if (info != null && info.size() > 0) {
+                        for (Information infoObject :
+                                info) {
+                            if (!TextUtils.isEmpty(infoObject.getTitle()) && !TextUtils.isEmpty(infoObject.getTitle()) && !TextUtils.isEmpty(infoObject.getTitle())) {
+                                filteredList.add(infoObject);
+                            }
+                        }
+                    }
 
                     // Clear db data first
                     getDbHelper().clearAppInfoData();
 
                     // insert new values
-                    getDbHelper().insertInfoData(info);
+                    getDbHelper().insertInfoData(filteredList);
 
                     //Send the response to back to UI
-                    broadcastInfoResponse(info,title);
+                    broadcastInfoResponse(filteredList, title);
 
-                    AppLog.d(TAG, "Number of Info received: " + info.size());
-                }else{
+                } else {
                     broadcastError(new Throwable("Something went wrong, please try again later."));
                 }
 
@@ -166,11 +193,13 @@ public class AppController {
     }
 
     /**
-     *  Fetch the app info data from the db.
+     * Fetch the app info data from the db.
+     *
      * @return list of Information.
      */
-    public List<Information> fetchInformationListFromDB(){
-       return getDbHelper().fetchInfoDataFromDb();
+    public List<Information> fetchInformationListFromDB() {
+        return getDbHelper().fetchInfoDataFromDb();
     }
+
 
 }

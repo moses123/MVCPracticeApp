@@ -7,8 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
  * The Class UpdateCommand.
  * Helps to build update command to be executed in DB
  */
-public class UpdateCommand extends ExecuteQuery
-{
+ class UpdateCommand extends ExecuteQuery {
 	
 	/** The table name. */
 	private String mTableName;
@@ -32,7 +31,7 @@ public class UpdateCommand extends ExecuteQuery
 	{
 		this(tableName,whereClause, new ContentValues());
 	}
-	
+
 	/**
 	 * Instantiates a new update command.
 	 *
@@ -61,72 +60,6 @@ public class UpdateCommand extends ExecuteQuery
 		mWhereClause = whereClause;
 		mContentValues = contentValues;
 		mWhereArgs = whereArgs;
-	}
-
-
-	/**
-	 * Update.
-	 *
-	 * @param column the column
-	 * @param value the value
-	 */
-	public void update(String column, String value) {
-			mContentValues.put(column, value);
-	}
-	
-	/**
-	 * Update.
-	 *
-	 * @param column the column
-	 * @param value the value
-	 */
-	public void update(String column, int value)
-	{
-		mContentValues.put(column, value);
-	}
-	
-	/**
-	 * Update.
-	 *
-	 * @param column the column
-	 * @param value the value
-	 */
-	public void update(String column, long value)
-	{
-		mContentValues.put(column, value);
-	}
-	
-	/**
-	 * Update.
-	 *
-	 * @param column the column
-	 * @param value the value
-	 */
-	public void update(String column, float value)
-	{
-		mContentValues.put(column, value);
-	}
-	
-	/**
-	 * Update.
-	 *
-	 * @param column the column
-	 * @param value the value
-	 */
-	public void update(String column, double value)
-	{
-		mContentValues.put(column, value);
-	}
-	
-	/**
-	 * Update.
-	 *
-	 * @param column the column
-	 * @param value the value
-	 */
-	public void update(String column, boolean value)
-	{
-		mContentValues.put(column, value);
 	}
 
     /**

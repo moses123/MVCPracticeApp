@@ -1,53 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipe_refresh_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-<RelativeLayout
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/board_detail_frag"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   >
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.v7.widget.RecyclerView>
-
-    <TextView
-        android:id="@+id/error_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/no_data_text"
-        android:textSize="@dimen/text_size_secondary"
-        android:textColor="@android:color/black"
-        android:visibility="gone"
-        />
-
-    <!--Make visible to show waiting dialog and disable click on screen.-->
-    <FrameLayout
-        android:id="@+id/layout_progress"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:background="@android:color/transparent"
-        android:visibility="gone"
-        android:focusable="true"
-        android:clickable="true">
-
-        <ProgressBar
-            android:id="@+id/load_dialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminate="true" />
-
-    </FrameLayout>
-
-
-</RelativeLayout>
-</android.support.v4.widget.SwipeRefreshLayout>
+    android:name="com.test.testapplication.ui.InfoListFragment"
+    tools:layout="@layout/list_fragment_layout">
+</fragment>

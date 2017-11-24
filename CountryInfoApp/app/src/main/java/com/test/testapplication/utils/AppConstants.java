@@ -11,4 +11,6 @@ public class AppConstants {
     public static final String TITLE_PREF_KEY="key_title";
 
     public static final String PREF_NAME ="app_Pref" ;
+
+    public static final String IS_NETWORK_OFF ="network_status" ;
 }
