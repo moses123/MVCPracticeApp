@@ -1,5 +1,7 @@
 package com.test.testapplication.controller;
 
+import android.content.Context;
+
 import com.test.testapplication.network.ApiInterface;
 import com.test.testapplication.network.NetworkManager;
 
@@ -18,6 +20,7 @@ import static org.mockito.Mockito.when;
 
 /**
  * Created by moseskesavan on 11/23/17.
+ * Test class for AppController.
  */
 
 @RunWith(PowerMockRunner.class)
@@ -28,7 +31,8 @@ public class AppControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        mAppController= AppController.getAppController();
+        Context mockContext= mock(Context.class);
+        mAppController= AppController.getAppController(mockContext);
     }
 
 

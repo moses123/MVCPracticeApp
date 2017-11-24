@@ -73,6 +73,9 @@ public class InfoListFragment extends Fragment {
     /*Holds the shared pref instance*/
     private PreferenceManager mPreferences;
 
+    /*Holds the app controller instance */
+    private AppController mController;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +98,7 @@ public class InfoListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        setAppTitle(mPreferences.getString(AppConstants.TITLE_PREF_KEY, ""));
+        setAppTitle(mPreferences.getString(AppConstants.TITLE_PREF_KEY));
     }
 
     /**
@@ -105,6 +108,7 @@ public class InfoListFragment extends Fragment {
         if (mPreferences == null) {
             mPreferences = PreferenceManager.getInstance(mContext);
         }
+        mController=AppController.getAppController(getActivity());
         attachCallBack();
         initData();
     }
@@ -148,8 +152,9 @@ public class InfoListFragment extends Fragment {
                 } else {
                     errorMessage = getString(R.string.common_error_text);
                 }
-
-                Snackbar.make(getView(), errorMessage, Snackbar.LENGTH_SHORT).show();
+                if(getView()!=null) {
+                    Snackbar.make(getView(), errorMessage, Snackbar.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -162,14 +167,14 @@ public class InfoListFragment extends Fragment {
             }
         };
 
-        AppController.getAppController().registerCallback(callback);
+        mController.registerCallback(callback);
 
         //Attaching the swipe refresh listener to the layout
         SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mSwipeRefreshLayout.setRefreshing(true);
-                AppController.getAppController().fetchInformationList();
+                mController.fetchInformationList();
             }
         };
         mSwipeRefreshLayout.setOnRefreshListener(listener);
@@ -182,14 +187,16 @@ public class InfoListFragment extends Fragment {
      */
     private void initData() {
         mWaitingProgress.setVisibility(View.VISIBLE);
-        List<Information> infoList = AppController.getAppController().fetchInformationListFromDB();
+        List<Information> infoList = mController.fetchInformationListFromDB();
         if (infoList == null || infoList.size() == 0) {
             if (AppUtil.isNetworkConnected(mContext)) {
-                AppController.getAppController().fetchInformationList();
+                mController.fetchInformationList();
             } else {
                 mPreferences.putBoolean(AppConstants.IS_NETWORK_OFF, true);
                 mWaitingProgress.setVisibility(View.GONE);
-                Snackbar.make(getView(), getString(R.string.connectivity_error_text), Snackbar.LENGTH_SHORT).show();
+                if(getView()!=null){
+                    Snackbar.make(getView(), getString(R.string.connectivity_error_text), Snackbar.LENGTH_SHORT).show();
+                }
             }
         }else{
             setAdapter(infoList);
@@ -245,7 +252,7 @@ public class InfoListFragment extends Fragment {
         if (mUnBinder != null) {
             mUnBinder.unbind();
         }
-        AppController.getAppController().unRegisterCallback(callback);
+        mController.unRegisterCallback(callback);
         if (mContext != null) {
             mContext = null;
         }

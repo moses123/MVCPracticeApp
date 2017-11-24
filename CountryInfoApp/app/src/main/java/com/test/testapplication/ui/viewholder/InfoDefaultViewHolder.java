@@ -14,7 +14,6 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.test.testapplication.App;
 import com.test.testapplication.R;
 import com.test.testapplication.model.Information;
 
@@ -55,8 +54,8 @@ public class InfoDefaultViewHolder extends MasterViewHolder {
      */
     public void bind(Information information) {
         if (information != null) {
-                mTitleText.setText(TextUtils.isEmpty(information.getTitle())? App.getContext().getString(R.string.empty_title_text):information.getTitle());
-            mDescriptionText.setText(TextUtils.isEmpty(information.getDescription())? App.getContext().getString(R.string.empty_desc_text):information.getDescription());
+                mTitleText.setText(TextUtils.isEmpty(information.getTitle())? mTitleText.getContext().getString(R.string.empty_title_text):information.getTitle());
+            mDescriptionText.setText(TextUtils.isEmpty(information.getDescription())? mDescriptionText.getContext().getString(R.string.empty_desc_text):information.getDescription());
             mProgressBar.setVisibility(View.VISIBLE);
             downloadImage(information.getImageUrl());
         }

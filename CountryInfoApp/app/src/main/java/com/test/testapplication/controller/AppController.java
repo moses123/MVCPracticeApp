@@ -1,9 +1,9 @@
 package com.test.testapplication.controller;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.test.testapplication.App;
 import com.test.testapplication.database.DBHelper;
 import com.test.testapplication.logger.AppLog;
 import com.test.testapplication.model.CountryInfo;
@@ -29,6 +29,7 @@ public class AppController {
 
     /* Tag to log info, warning, errors.*/
     private static final String TAG = AppController.class.getSimpleName();
+    private static Context sContext;
 
     /*Holds the list of callbacks registered by the UI components*/
     private final List<ResponseCallback.InfoCallback> mConnectionColl = Collections.synchronizedList(new ArrayList<ResponseCallback.InfoCallback>());
@@ -49,8 +50,8 @@ public class AppController {
      *
      * @return controller instance
      */
-    public static AppController getAppController() {
-
+    public static AppController getAppController(Context context) {
+        sContext = context;
         if (sController == null) {
             sController = new AppController();
         }
@@ -104,9 +105,9 @@ public class AppController {
     }
 
     /**
-     * This methdo teels the ui for any network change.
+     * This method tells the ui for any network change.
      *
-     * @param status
+     * @param status true if connected else false
      */
     public void broadCastNetworkChangeToUI(boolean status) {
         int size = mConnectionColl != null ? mConnectionColl.size() : 0;
@@ -187,7 +188,7 @@ public class AppController {
      */
     private DBHelper getDbHelper() {
         if (mDbHelper == null) {
-            mDbHelper = DBHelper.getInstance(App.getContext());
+            mDbHelper = DBHelper.getInstance(sContext);
         }
         return mDbHelper;
     }

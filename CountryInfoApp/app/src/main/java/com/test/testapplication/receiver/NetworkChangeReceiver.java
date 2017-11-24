@@ -20,8 +20,8 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         if (AppUtil.isNetworkConnected(context)) {
-            if (PreferenceManager.getInstance(context).getBoolean(AppConstants.IS_NETWORK_OFF, false)) {
-                AppController.getAppController().broadCastNetworkChangeToUI(true);
+            if (PreferenceManager.getInstance(context).getBoolean(AppConstants.IS_NETWORK_OFF)) {
+                AppController.getAppController(context).broadCastNetworkChangeToUI(true);
             }
         }
     }

@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.test.testapplication.App;
 import com.test.testapplication.R;
 import com.test.testapplication.model.Information;
 
@@ -37,8 +36,8 @@ public class InfoContentViewHolder extends MasterViewHolder {
 
     public void bind(Information information) {
         if (information != null) {
-            mTitleText.setText(information.getTitle());
-            mDescriptionText.setText(TextUtils.isEmpty(information.getDescription())? App.getContext().getString(R.string.empty_desc_text):information.getDescription());
+            mTitleText.setText(TextUtils.isEmpty(information.getTitle())? mTitleText.getContext().getString(R.string.empty_desc_text):information.getTitle());
+            mDescriptionText.setText(TextUtils.isEmpty(information.getDescription())? mDescriptionText.getContext().getString(R.string.empty_desc_text):information.getDescription());
         }
 
     }

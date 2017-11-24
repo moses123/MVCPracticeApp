@@ -4,8 +4,6 @@ import com.test.testapplication.model.Information;
 
 import java.util.List;
 
-import retrofit2.Response;
-
 /**
  * Created by moseskesavan on 11/22/17.
  *
