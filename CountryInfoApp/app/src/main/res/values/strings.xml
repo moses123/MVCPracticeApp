@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TestApplication</string>
+    <string name="app_name">CountyInfoApp</string>
     <string name="common_error_text">Something went wrong, please try again later.</string>
     <string name="connectivity_error_text">No internet connectivity.</string>
     <string name="no_data_text">Data not available.</string>
